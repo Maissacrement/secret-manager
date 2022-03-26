@@ -1,7 +1,10 @@
-## Intro
+# Intro
 
-This services as not been writted to read secret but override them and deploy it in containers side context
-You can provide a secret configuration 
+This services as not been writted to read secret
+Override them and update container runtime with a new configuration
+You can provide any config file parse and send to a specified container
+
+<img src="./assets/provider.diagram.png" style="width:100%;">
 
 ## Default config
 
