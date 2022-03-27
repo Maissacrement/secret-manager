@@ -4,12 +4,10 @@ This service was not written to read the secrets inside containers !!!<br>Nor is
 
 Conventional writing of an automatically deploy file:<br>`<name|id>_path.to.file`
 
+## 1. Data flow representation
+
+### 1.1 Classic diagram flow
+
 <img src="./assets/provider.diagram.png" style="width:100%;">
 
-## Default config
-
-## Reload config
-
-## Provide config
-
-## Constraint containers
+### 1.2 Time-Dependent Representation
