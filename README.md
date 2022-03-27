@@ -11,3 +11,6 @@ Conventional writing of an automatically deploy file:<br>`<name|id>_path.to.file
 <img src="./assets/provider.diagram.png" style="width:100%;">
 
 ### 1.2 Time-Dependent Representation
+
+<br><br>
+<img src="./diagrams/sequential.drawio.svg" style="width:50%;margin-left: 25%;">
