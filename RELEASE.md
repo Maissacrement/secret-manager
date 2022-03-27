@@ -37,7 +37,7 @@
             I want to be able to reload a container with new configuration file or repository<br>
             In order to provide data to the host container.
           </td>
-          <td>2</td>
+          <td>3</td>
           <td>HIGH</td>
         </tr>
         <tr>
