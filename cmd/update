@@ -1,2 +1,12 @@
 #!/bin/sh
-ls -la >> /var/log/test
+set -e
+for f in `ls -laR $1 | grep ":$" | cut -d':' -f1`
+do
+    # List repo files
+    #echo $f
+    files=`find $f -maxdepth 1 -mindepth 1 -type f`
+    for file in $files
+    do
+        exec 3<$file ; rm $file; envsubst <&3 >$file ;  exec 3>&-
+    done
+done

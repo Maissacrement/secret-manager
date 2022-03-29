@@ -1,1 +1,1 @@
-/home/test/watcher IN_CREATE /etc/incron/cmd/update
+/home/test/watcher IN_CREATE,IN_MOVED_TO /etc/incron/cmd/update $@/$#
