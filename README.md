@@ -17,3 +17,9 @@ Conventional writing of an automatically deploy file:<br>`<name|id>_path.to.file
 
 <br><br>
 <img src="./diagrams/sequential.drawio.svg" style="width:50%;">
+
+## 2 How to install
+
+[Docker repo](https://hub.docker.com/r/maissacrement/secret-manager)
+
+registry: maissacrement/secret-manager
