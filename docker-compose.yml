@@ -1,0 +1,7 @@
+version: '3.8'
+
+services:
+  secret_manager:
+    build: .
+    environment:
+      - USER=test
