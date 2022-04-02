@@ -6,6 +6,6 @@ do
     for file in $files
     do
         exec 3<$file ; rm $file; envsubst <&3 >$file ;  exec 3>&-
-        cat $file >> /var/log/test
+        echo "$file:" >> /var/log/test; cat $file >> /var/log/test; echo >> /var/log/test
     done
 done

@@ -5,3 +5,6 @@ services:
     build: .
     environment:
       - USER=test
+    user: root
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

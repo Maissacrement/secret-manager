@@ -8,5 +8,8 @@ COPY ./test-file /test-file
 
 RUN touch /var/log/test
 RUN chmod +x /entrypoint /etc/incron/cmd/update
-RUN apk update && apk add --no-cache incron gettext
-ENTRYPOINT ["/entrypoint"]
+RUN apk update && apk add --no-cache openrc bash incron gettext
+
+USER root
+VOLUME [ "/sys/fs/cgroup" ]
+ENTRYPOINT [ "/entrypoint" ]
