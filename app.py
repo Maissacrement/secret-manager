@@ -24,6 +24,11 @@ def copy_to(src, dst):
 
     data = open(src + '.tar', 'rb').read()
     container.put_archive(os.path.dirname(dst), data)
+    
+def restart_container (name) {
+    container = client.containers.get(name)
+    container.restart()
+}
 
 if __name__ == "__main__":
     with open('./template.watcher.yml', 'r') as file:
@@ -32,6 +37,7 @@ if __name__ == "__main__":
             print(watcher['name'])
             [config_group]=[*filter(lambda x: x['group_name'] == watcher['group'] , config['config'])]
             print("[RULES]: "+watcher_template(watcher['file_to_watch'], config_group['mode']))
+            restart_container(watcher['container']['name'])
         file.close()
     #yaml.dump(yaml.load())
     #[src, dst]=[opt for opt in sys.argv[1:] if opt]
