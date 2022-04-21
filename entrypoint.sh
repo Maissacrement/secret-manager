@@ -1,7 +1,5 @@
 #!/bin/sh
-
 set -e
-
 mkdir -p /run/openrc/
 touch /run/openrc/softlevel
 touch /var/log/test
