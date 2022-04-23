@@ -30,13 +30,12 @@ def restart_container (name):
     container = client.containers.get(name)
     container.restart()
 
-def write_incron_rules (watcher, config_group, mode):
-    incron = '/etc/incron.d/config'
+def write_incron_rules (watcher, config_group, mode, incron):
     with open(incron, mode) as cmd:
         cmd.write(watcher_template(watcher['file_to_watch'], config_group['mode']) + '\n')
         cmd.close()
 
-def init_rules(config):
+def init_rules(config, incron):
     rules=[]
     i = 0
     for watcher in config["watchers"]:
@@ -46,7 +45,7 @@ def init_rules(config):
         print("[RULES]: "+watcher_template(watcher['file_to_watch'], config_group['mode']))
         rules.append(watcher_template(watcher['file_to_watch'], config_group['mode']))
         print("[RULES]: "+rules[len(rules) - 1])
-        write_incron_rules (watcher, config_group, mode='w' if i==0 else 'a+' )
+        write_incron_rules (watcher, config_group, 'w' if i==0 else 'a+', incron)
         if i == 0: i+=1
 
 def make_copy (config, src):
@@ -54,9 +53,8 @@ def make_copy (config, src):
     if len(find_src):
         os.system('echo Waiting ...')
         c_dst=find_src[0]['container']['name'] + ':' + find_src[0]['container']['path']
-        print(c_dst)
         copy_to(src, c_dst)
-        print('[PROVISION] File `{}` as been push to the container'.format(src))
+        print('[PROVISION] File `{}` as been push to the {}'.format(src, c_dst))
     #copy_to(src, dst)
     #restart_container(c_id)
     # TEST        
@@ -71,17 +69,20 @@ def make_copy (config, src):
 
 def cli():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--init", help="Init secret-manager environment", action="store_true")
-    parser.add_argument("--template", help="Default template is locate on ")
+    parser.add_argument("--template", help="Default template is locate on /etc/template.watcher.yml")
+    parser.add_argument("--config", help="Default incron config is locate on /etc/incron.d/config")
     parser.add_argument("--provide", help="Provide repo[ulrs] to a container")
     return parser.parse_args()
 
 if __name__ == "__main__":
-    template = '/etc/template.watcher.yml'
     opts=cli()
+    template = '/etc/template.watcher.yml'
+    incron = '/etc/incron.d/config'
+    if opts.template: template = opts.template
+    if opts.config: incron = opts.config
     with open(template, 'r') as file:
         config=yaml.safe_load(file.read())
-        if opts.template: init_rules(config)
+        if opts.template: init_rules(config, incron)
         if opts.provide: make_copy(config, opts.provide)
         file.close()
 

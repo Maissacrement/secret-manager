@@ -1,0 +1,2 @@
+/home/loader/container1 IN_CREATE /etc/incron/cmd/update $@/$#
+/home/loader/container2 IN_CREATE,IN_MOVED_TO /etc/incron/cmd/update $@/$#
