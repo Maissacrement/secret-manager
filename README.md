@@ -1,8 +1,6 @@
 # Intro
 
-This service was not written to read the secrets inside containers !!!<br>Nor is it a way for you to update your secrets on a container !!!!<br>This service is able, from the environment variable provided locally in the context of the "secret-manager" container, to parse a file or a directory recursively and to provision it on the container or group of containers mentioned in a totally transparent manner. The variables will be taken directly from the read-only file
-
-Conventional writing of an automatically deploy file:<br>`<name|id>_path.to.file`
+Run on files event a deploy to target container. You can automate any config script and provide them with encrypted secret directly on a target.
 
 ## 1. Data flow representation
 
@@ -20,3 +18,23 @@ Conventional writing of an automatically deploy file:<br>`<name|id>_path.to.file
 [Docker repo](https://hub.docker.com/r/maissacrement/secret-manager)
 
 registry: maissacrement/secret-manager
+
+## Example
+
+This is an example configuration that should cover most relevant aspects of the new YAML configuration format.
+
+A template need be provide on: `/etc/incron/template.watcher.yml`
+```yaml
+config:
+  # Create group to manage incrond Event Symbols
+  - group_name: 'updatehook' # Event group name
+    mode: 'IN_CREATE,IN_MOVED_TO' # Events list
+
+watchers:
+  - name: 'Provide container1' # Rules name
+    file_to_watch: /home/loader/container1 # File to observe
+    group: updateonly # Attach Event group name
+    container: 
+      name: '8e5d2676fdb0' # Container name
+      path: /etc/ # Container destination path
+```
