@@ -10,12 +10,12 @@ watchers:
     file_to_watch: /home/loader/container1
     group: updateonly
     container: 
-      name: '8e5d2676fdb0'
+      name: '5360d484bf31'
       path: /etc/
   
   - name: 'Provide container2'
     file_to_watch: /home/loader/container2
     group: updatehook
     container: 
-      name: '8e5d2676fdb0'
+      name: '5360d484bf31'
       path: /etc/

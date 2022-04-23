@@ -1,5 +1,5 @@
 #!make
-VERSION=0.0.1
+VERSION=0.0.2
 IMAGE_NAME=secret-manager
 REGISTRY_IMAGE_NAME=maissacrement/${IMAGE_NAME}
 

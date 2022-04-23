@@ -7,4 +7,6 @@ services:
       - USER=test
     user: root
     volumes:
+      - ./cmd/update:/etc/incron/cmd/update
+      - ./app.py:/usr/bin/secret-manager
       - /var/run/docker.sock:/var/run/docker.sock

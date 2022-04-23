@@ -10,7 +10,7 @@ COPY ./test-file /test-file
 
 RUN touch /var/log/test
 RUN chmod +x /entrypoint /etc/incron/cmd/update
-RUN apk update && apk add --no-cache python3 py3-pip openrc bash incron gettext 
+RUN apk update && apk add python3 py3-pip openrc bash incron gettext # --no-cache
 RUN pip3 install -r /tmp/requirement.txt
 
 USER root

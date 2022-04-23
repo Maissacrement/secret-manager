@@ -23,7 +23,7 @@ registry: maissacrement/secret-manager
 
 This is an example configuration that should cover most relevant aspects of the new YAML configuration format.
 
-A template need be provide on: `/etc/incron/template.watcher.yml`
+A template need be provide on: `/etc/template.watcher.yml`
 ```yaml
 config:
   # Create group to manage incrond Event Symbols
@@ -31,6 +31,7 @@ config:
     mode: 'IN_CREATE,IN_MOVED_TO' # Events list
 
 watchers:
+  # List of watcher
   - name: 'Provide container1' # Rules name
     file_to_watch: /home/loader/container1 # File to observe
     group: updateonly # Attach Event group name
