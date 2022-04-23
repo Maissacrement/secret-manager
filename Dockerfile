@@ -1,5 +1,7 @@
 FROM docker
 
+COPY requirement.txt /tmp/requirement.txt 
+COPY ./app.py /usr/bin/secret-manager
 COPY ./incron/ /etc
 COPY ./entrypoint.sh /entrypoint
 RUN mkdir -p /home/test/watcher /etc/incrond/cmd/
@@ -8,7 +10,8 @@ COPY ./test-file /test-file
 
 RUN touch /var/log/test
 RUN chmod +x /entrypoint /etc/incron/cmd/update
-RUN apk update && apk add --no-cache openrc bash incron gettext
+RUN apk update && apk add --no-cache python3 py3-pip openrc bash incron gettext 
+RUN pip3 install -r /tmp/requirement.txt
 
 USER root
 VOLUME [ "/sys/fs/cgroup" ]

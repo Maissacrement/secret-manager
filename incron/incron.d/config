@@ -1,1 +1,0 @@
-/home/test/watcher IN_CREATE,IN_MOVED_TO /etc/incron/cmd/update $@/$#

@@ -1,0 +1,21 @@
+config:
+  - group_name: 'updatehook'
+    mode: 'IN_CREATE,IN_MOVED_TO'
+
+  - group_name: 'updateonly'
+    mode: 'IN_CREATE'
+
+watchers:
+  - name: 'Provide container1'
+    file_to_watch: /home/loader/container1
+    group: updateonly
+    container: 
+      name: '8e5d2676fdb0'
+      path: /etc/
+  
+  - name: 'Provide container2'
+    file_to_watch: /home/loader/container2
+    group: updatehook
+    container: 
+      name: '8e5d2676fdb0'
+      path: /etc/
