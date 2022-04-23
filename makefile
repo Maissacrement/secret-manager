@@ -1,5 +1,5 @@
 #!make
-VERSION=0.0.2
+VERSION=0.0.3
 IMAGE_NAME=secret-manager
 REGISTRY_IMAGE_NAME=maissacrement/${IMAGE_NAME}
 
@@ -20,4 +20,4 @@ push: build tag
 	docker push ${REGISTRY_IMAGE_NAME}:latest
 
 pull:
-	docker push ${REGISTRY_IMAGE_NAME}:${VERSION}
+	docker pull ${REGISTRY_IMAGE_NAME}:${VERSION}
