@@ -8,7 +8,7 @@ build:
 
 run:
 	docker run -e USER=tgy --rm -it \
-		-v /var/run/docker.sock:/var/run/docker.sock -u root \
+		-v /var/run/docker.sock:/var/run/docker.sock \
 	${IMAGE_NAME}
 
 tag:

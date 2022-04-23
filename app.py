@@ -4,7 +4,6 @@ import os
 import tarfile
 from tempfile import template
 import docker
-from isort import file
 import yaml
 
 watcher_template=lambda path, *mode: "{} {} /etc/incron/cmd/update $@/$#".format(path, ''.join([*map(str, mode)]))
@@ -31,26 +30,34 @@ def restart_container (name):
     container.restart()
 
 def init_rules():
+    base = '/etc'
     rules=[]
-    incron, template='./incron/incron.d/config', './template.watcher.yml'
+    incron, template=base + '/incron.d/config', base + '/template.watcher.yml'
     with open(template, 'r') as file:
         config=yaml.safe_load(file.read())
         for watcher in config["watchers"]:
             print(watcher['name'])
+            os.system('mkdir -p '+watcher['file_to_watch'])
             [config_group]=[*filter(lambda x: x['group_name'] == watcher['group'] , config['config'])]
             print("[RULES]: "+watcher_template(watcher['file_to_watch'], config_group['mode']))
+            rules.append(watcher_template(watcher['file_to_watch'], config_group['mode']))
+            print("[RULES]: "+rules[len(rules) - 1])
+            
+        with open(incron, 'w') as cmd:
+            cmd.write("\n"+"\n".join(watcher_template(watcher['file_to_watch'], config_group['mode'])))
+            cmd.close()
+
+        os.system('echo Waiting ... && sleep 5')        
+        for watcher in config["watchers"]:
+            os.system("cp -Rv /test-file {}".format(watcher['file_to_watch']))
+            os.system("/etc/incron/cmd/update {}".format(watcher['file_to_watch']))
             dst = watcher['container']['name'] + ":" + watcher['container']['path']
             src = watcher['file_to_watch']
             copy_to(src, dst)
             restart_container(watcher['container']['name'])
-            rules.append(watcher_template(watcher['file_to_watch'], config_group['mode']))
-            print("[RULES]: "+rules[len(rules) - 1])
-        
-        with open(incron, 'a+') as cmd:
-            cmd.write("\n"+"\n".join(rules))
-            
-            cmd.close()
+
         file.close()
+            
 
 if __name__ == "__main__":
     init_rules()
