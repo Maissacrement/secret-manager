@@ -9,4 +9,4 @@ do
         echo "$file:" >> /var/log/test; cat $file >> /var/log/test; echo >> /var/log/test
     done
 done
-/usr/bin/secret-manager --provide="$1" >> /var/log/test
+/usr/bin/secret-manager --provide="$1" --restart=True >> /var/log/test

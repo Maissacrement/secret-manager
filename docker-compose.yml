@@ -2,7 +2,8 @@ version: '3.8'
 
 services:
   secret_manager:
-    image: maissacrement/secret-manager:0.0.2
+    image: maissacrement/secret-manager:0.0.3
+    #build: .
     environment:
       - USER=test
     user: root
